@@ -139,7 +139,19 @@
         <artifactId>apache-rat-plugin</artifactId>
         <version>0.12</version>
       </plugin>
-    </plugins>
+      <!-- Revapi report -->
+      <plugin>
+        <groupId>org.revapi</groupId>
+        <artifactId>revapi-maven-plugin</artifactId>
+        <version>0.5.1</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.revapi</groupId>
+            <artifactId>revapi-java</artifactId>
+            <version>0.10.1</version>
+          </dependency>
+        </dependencies>
+      </plugin>    </plugins>
   </build>
 
   <scm>

@@ -188,6 +188,8 @@
     <Log4jReleaseKey>B3D8E1BA</Log4jReleaseKey>
     <!-- <Log4jReleaseManager>Matt Sicker</Log4jReleaseManager>
     <Log4jReleaseKey>FA1C814D</Log4jReleaseKey> -->
+    <!-- The version to compare the current artifacts against for binary compatibility. -->
+    <revapi.oldVersion>2.6.2</revapi.oldVersion>
     <!-- note that any properties you want available in velocity templates must not use periods! -->
     <slf4jVersion>1.7.21</slf4jVersion>
     <logbackVersion>1.1.7</logbackVersion>
@@ -226,6 +228,8 @@
     <!-- Allow Clirr severity to be overriden by the command-line option -DminSeverity=level -->
     <minSeverity>info</minSeverity>
     <jctoolsVersion>1.2.1</jctoolsVersion>
+    <revapi.maven.plugin.version>0.5.1</revapi.maven.plugin.version>
+    <revapi.java.version>0.10.1</revapi.java.version>
   </properties>
   <pluginRepositories>
     <pluginRepository>
@@ -1119,10 +1123,46 @@
           </excludes>
         </configuration>
       </plugin>
+
+      <plugin>
+        <groupId>org.revapi</groupId>
+        <artifactId>revapi-maven-plugin</artifactId>
+        <version>${revapi.maven.plugin.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.revapi</groupId>
+            <artifactId>revapi-java</artifactId>
+            <version>${revapi.java.version}</version>
+          </dependency>
+        </dependencies>
+        <configuration>
+        </configuration>
+        <executions>
+          <execution>
+            <id>api-check</id>
+            <goals><goal>check</goal></goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
   <reporting>
     <plugins>
+      <plugin>
+        <groupId>org.revapi</groupId>
+        <artifactId>revapi-maven-plugin</artifactId>
+        <version>${revapi.maven.plugin.version}</version>
+        <configuration>
+        </configuration>
+        <reportSets>
+          <reportSet>
+            <id>api-check</id>
+            <reports>
+              <report>report-aggregate</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
       <!-- Changes report -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
