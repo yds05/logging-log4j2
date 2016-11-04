@@ -27,13 +27,13 @@
   <name>Apache Log4j Samples: Scala API</name>
   <url>http://http://logging.apache.org/log4j/2.x/</url>
   <properties>
-    <scala.version>2.11.8</scala.version>
+    <scala.version>2.12.0</scala.version>
     <scala.maven.plugin.version>3.2.2</scala.maven.plugin.version>
   </properties>
   <dependencies>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-api-scala_2.11</artifactId>
+      <artifactId>log4j-api-scala_2.12</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>

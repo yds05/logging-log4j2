@@ -388,6 +388,11 @@
         <version>${project.version}</version>
       </dependency>
       <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-api-scala_2.12</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.sleepycat</groupId>
         <artifactId>je</artifactId>
         <version>5.0.73</version>
@@ -1260,6 +1265,7 @@
     <module>log4j-liquibase</module>
     <module>log4j-api-scala_2.10</module>
     <module>log4j-api-scala_2.11</module>
+    <module>log4j-api-scala_2.12</module>
   </modules>
   <profiles>
     <profile>
