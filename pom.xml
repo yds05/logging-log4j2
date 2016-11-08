@@ -873,6 +873,30 @@
               <Xlint />
             </compilerArguments>
           </configuration>
+          <executions>
+            <execution>
+              <!-- disable annotation processing for first pass -->
+              <id>default-compile</id>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <phase>compile</phase>
+              <configuration>
+                <proc>none</proc>
+              </configuration>
+            </execution>
+            <execution>
+              <!-- then do a processing-only pass to generate plugins .dat file -->
+              <id>process-plugins</id>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <phase>process-classes</phase>
+              <configuration>
+                <proc>only</proc>
+              </configuration>
+            </execution>
+          </executions>          
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -921,18 +945,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>${compiler.plugin.version}</version>
-        <configuration>
-          <source>${maven.compile.source}</source>
-          <target>${maven.compile.target}</target>
-          <showDeprecation>true</showDeprecation>
-          <showWarnings>true</showWarnings>
-          <compilerArguments>
-            <Xmaxwarns>10000</Xmaxwarns>
-            <Xlint />
-          </compilerArguments>
-          <encoding>UTF-8</encoding>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

@@ -27,6 +27,45 @@
       <action issue="LOG4J2-1661" dev="mikes" type="add">
         Support Scala 2.12.
       </action>
+      <action issue="LOG4J2-1674" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in ThresholdFilter.
+      </action>
+      <action issue="LOG4J2-1673" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in MarkerFilter.
+      </action>
+      <action issue="LOG4J2-1672" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in LevelRangeFilter.
+      </action>
+      <action issue="LOG4J2-1671" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in EqualsIgnoreCaseReplacementConverter.
+      </action>
+      <action issue="LOG4J2-1670" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in EqualsReplacementConverter.
+      </action>
+      <action issue="LOG4J2-1669" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in MaxLengthConverter.
+      </action>
+      <action issue="LOG4J2-1668" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in MarkerPatternConverter.
+      </action>
+      <action issue="LOG4J2-1667" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in SequenceNumberPatternConverter.
+      </action>
+      <action issue="LOG4J2-1666" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in RelativeTimePatternConverter.
+      </action>
+      <action issue="LOG4J2-1665" dev="rpopma" type="fix">
+        (GC) Avoid allocating temporary objects in IntegerPatternConverter.
+      </action>
+      <action issue="LOG4J2-1637" dev="rpopma" type="fix">
+        Fixed problems when used in OSGi containers (IllegalAccessError, NoClassDefFoundError).
+      </action>
+      <action issue="LOG4J2-1226" dev="rpopma" type="fix">
+        Improve LogEvent serialization to handle non-serializable Messages and deserializing when required classes are missing.
+      </action>
+      <action issue="LOG4J2-1663" dev="rpopma" type="fix">
+        Ensure SortedArrayStringMap can be serialized and deserialized without errors regardless of content.
+      </action>
       <action issue="LOG4J2-1660" dev="rpopma" type="add">
         Added public method ThreadContext::getThreadContextMap; removed class ThreadContextAccess.
       </action>
