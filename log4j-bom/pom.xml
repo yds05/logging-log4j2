@@ -120,6 +120,12 @@
         <artifactId>log4j-api-scala_2.11</artifactId>
         <version>${project.version}</version>
       </dependency>
+      <!-- Kafka appender -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-kafka</artifactId>
+        <version>${project.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   <build>
