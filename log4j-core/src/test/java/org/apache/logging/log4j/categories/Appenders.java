@@ -26,7 +26,6 @@ public interface Appenders {
     interface CouchDb {}
     interface Jms {}
     interface Jpa {}
-    interface Kafka {}
     interface MongoDb {}
     interface Smtp {}
     interface ZeroMq {}

@@ -51,7 +51,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                 Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
         builder.add(appenderBuilder);
 
-        final AppenderComponentBuilder appenderBuilder2 = builder.newAppender("Kafka", "Kafka").addAttribute("topic", "my-topic");
+        final AppenderComponentBuilder appenderBuilder2 = builder.newAppender("Socket", "Socket").addAttribute("port", "12201");
         appenderBuilder2.addComponent(builder.newProperty("bootstrap.servers", "localhost:9092"));
         appenderBuilder2.add(builder.newLayout("GelfLayout").
             addAttribute("host", "my-host").
