@@ -23,7 +23,9 @@ import java.nio.charset.Charset;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.plugins.PluginBuilderAttribute;
+import org.apache.logging.log4j.core.config.plugins.PluginElement;
 import org.apache.logging.log4j.core.impl.MutableLogEvent;
+import org.apache.logging.log4j.core.util.KeyValuePair;
 import org.apache.logging.log4j.core.util.StringBuilderWriter;
 import org.apache.logging.log4j.util.Strings;
 
@@ -59,6 +61,9 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
         @PluginBuilderAttribute
         private boolean stacktraceAsString = false;
 
+        @PluginElement("AdditionalField")
+        private KeyValuePair[] additionalFields;
+
         protected String toStringOrNull(final byte[] header) {
             return header == null ? null : new String(header, Charset.defaultCharset());
         }
@@ -93,6 +98,10 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
 
         public boolean isStacktraceAsString() {
             return stacktraceAsString;
+        }
+
+        public KeyValuePair[] getAdditionalFields() {
+            return additionalFields;
         }
 
         public B setEventEol(final boolean eventEol) {
@@ -134,6 +143,16 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
             this.stacktraceAsString = stacktraceAsString;
             return asBuilder();
         }
+
+        /**
+         * Additional fields to set on each log event.
+         *
+         * @return this builder
+         */
+        public B setAdditionalFields(KeyValuePair[] additionalFields) {
+            this.additionalFields = additionalFields;
+            return asBuilder();
+        }
     }
 
     protected final String eol;
@@ -149,6 +168,21 @@ abstract class AbstractJacksonLayout extends AbstractStringLayout {
         this.compact = compact;
         this.complete = complete;
         this.eol = compact && !eventEol ? COMPACT_EOL : DEFAULT_EOL;
+    }
+
+    protected static KeyValuePair[] fixAdditionalFields(Configuration config, KeyValuePair[] additionalFields) {
+        if (config == null && additionalFields != null) {
+            for (KeyValuePair additionalField : additionalFields) {
+                if (valueNeedsLookup(additionalField.getValue())) {
+                    throw new IllegalArgumentException("configuration needs to be set when there are additional fields with variables");
+                }
+            }
+        }
+        return additionalFields != null ? additionalFields : new KeyValuePair[0];
+    }
+
+    static boolean valueNeedsLookup(final String value) {
+        return value != null && value.contains("${");
     }
 
     /**

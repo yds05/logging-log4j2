@@ -16,7 +16,9 @@
  */
 package org.apache.logging.log4j.core.layout;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.xml.stream.XMLStreamException;
@@ -27,6 +29,7 @@ import org.apache.logging.log4j.core.jackson.Log4jJsonObjectMapper;
 import org.apache.logging.log4j.core.jackson.Log4jXmlObjectMapper;
 import org.apache.logging.log4j.core.jackson.Log4jYamlObjectMapper;
 import org.apache.logging.log4j.core.jackson.XmlConstants;
+import org.apache.logging.log4j.core.util.KeyValuePair;
 import org.codehaus.stax2.XMLStreamWriter2;
 
 import com.fasterxml.jackson.core.PrettyPrinter;
@@ -216,7 +219,8 @@ abstract class JacksonFactory {
 
     abstract protected PrettyPrinter newPrettyPrinter();
 
-    ObjectWriter newWriter(final boolean locationInfo, final boolean properties, final boolean compact) {
+    ObjectWriter newWriter(final boolean locationInfo, final boolean properties, final boolean compact,
+                           final KeyValuePair[] additionalFields) {
         final SimpleFilterProvider filters = new SimpleFilterProvider();
         final Set<String> except = new HashSet<>(2);
         if (!locationInfo) {
@@ -228,7 +232,15 @@ abstract class JacksonFactory {
         except.add(this.getPropertNameForNanoTime());
         filters.addFilter(Log4jLogEvent.class.getName(), SimpleBeanPropertyFilter.serializeAllExcept(except));
         final ObjectWriter writer = this.newObjectMapper().writer(compact ? this.newCompactPrinter() : this.newPrettyPrinter());
-        return writer.with(filters);
+        if (additionalFields.length > 0) {
+            final Map<String, String> attributes = new HashMap<>(additionalFields.length);
+            for (KeyValuePair additionalField : additionalFields) {
+                attributes.put(additionalField.getKey(), additionalField.getValue());
+            }
+            return writer.with(filters).withAttributes(attributes);
+        } else {
+            return writer.with(filters);
+        }
     }
 
 }
