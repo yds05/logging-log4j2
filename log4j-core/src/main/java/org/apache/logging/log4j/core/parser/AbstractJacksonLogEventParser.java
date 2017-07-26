@@ -58,7 +58,7 @@ class AbstractJacksonLogEventParser implements TextLogEventParser {
         } catch (JsonProcessingException e) {
             throw new ParseException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ParseException(e);
         }
     }
 
@@ -69,7 +69,7 @@ class AbstractJacksonLogEventParser implements TextLogEventParser {
         } catch (JsonProcessingException e) {
             throw new ParseException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ParseException(e);
         }
     }
 
@@ -80,7 +80,7 @@ class AbstractJacksonLogEventParser implements TextLogEventParser {
         } catch (JsonProcessingException e) {
             throw new ParseException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ParseException(e);
         }
     }
 }

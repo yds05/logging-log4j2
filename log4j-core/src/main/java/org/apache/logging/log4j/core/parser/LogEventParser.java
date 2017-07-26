@@ -27,7 +27,7 @@ import java.io.InputStream;
 public interface LogEventParser {
 
     /**
-     * Parse from an InputStream, which is expected to contain exactly one log event.
+     * Parses an InputStream, which is expected to contain exactly one log event.
      *
      * @param input  the input stream, which will be closed
      *
@@ -38,7 +38,7 @@ public interface LogEventParser {
     LogEvent parseFrom(InputStream input) throws IOException, ParseException;
 
     /**
-     * Parse from a byte array, which is expected to contain exactly one log event.
+     * Parses a byte array, which is expected to contain exactly one log event.
      *
      * @param input  the byte array
      *
@@ -48,7 +48,7 @@ public interface LogEventParser {
     LogEvent parseFrom(byte[] input) throws ParseException;
 
     /**
-     * Parse from a specified range of a byte array. The specified range is expected to contain
+     * Parses a specified range in a byte array. The specified range is expected to contain
      * exactly one log event.
      *
      * @param input  the byte array
