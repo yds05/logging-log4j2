@@ -316,10 +316,20 @@ public final class PropertiesUtil {
 
         private Environment(final PropertySource propertySource) {
             sources.add(propertySource);
-            for (final PropertySource source : ServiceLoader.load(PropertySource.class)) {
-                sources.add(source);
+            for (ClassLoader classLoader : LoaderUtil.getClassLoaders()) {
+                try {
+                    loadPropertySource(classLoader);
+                } catch (Throwable ex) {
+                    LowLevelLogUtil.log("Unable to retrieve propertySource from ClassLoader " + classLoader + ", " + ex.getMessage());
+                }
             }
             reload();
+        }
+
+        private void loadPropertySource(ClassLoader classLoader) {
+            for (final PropertySource source : ServiceLoader.load(PropertySource.class, classLoader)) {
+                sources.add(source);
+            }
         }
 
         private synchronized void reload() {
